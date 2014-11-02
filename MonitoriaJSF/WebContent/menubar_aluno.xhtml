@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head></h:head>
+<h:body>
+<h:form> 
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+
+        <p:submenu label="Relatorio" icon="ui-icon-gear">
+            <p:menuitem value="Novo" actionListener="#{menuView.save}" icon="ui-icon-disk" update="messages"/>
+            <p:menuitem value="Resultado" actionListener="#{menuView.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
+        </p:submenu>
+ 
+        <p:submenu label="Inscrição" icon="ui-icon-gear">
+            <p:menuitem value="Novo" actionListener="#{menuView.save}" icon="ui-icon-disk" update="messages"/>
+            <p:menuitem value="Resultado" actionListener="#{menuView.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
+        </p:submenu>
+ 
+        <p:menuitem value="Editais" url="#" icon="ui-icon-close" />
+        
+        <f:facet name="options">
+            <p:commandButton value="#{loginView.user}"/>
+            <p:commandButton value="Logout" onclick="logout()" icon="ui-icon-extlink" />
+            <p:remoteCommand name="logout" action="#{loginView.logout}" />
+        </f:facet>
+    </p:menubar>
+</h:form>
+</h:body>
+
+</html>

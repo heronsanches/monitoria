@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+<title>Sistema Monitoria</title>
+</h:head>
+
+<h:body>
+<h:form>
+    <p:panel id="panel" header="Login">
+ 
+        <p:messages id="msgs" />
+ 
+        <h:panelGrid columns="3" cellpadding="5">
+            <p:outputLabel for="user" value="CPF:" />
+            <p:inputText id="user" value="#{loginView.user}" required="true" label="user">
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="user" display="icon" />
+ 
+            <p:outputLabel for="password" value="PASSWORD:" />
+            <p:inputText id="password" type="password" value="#{loginView.password}" label="password" required="true">
+                <f:validateLength minimum="2" />
+                <p:ajax update="msgpassword" event="keyup" />
+            </p:inputText>
+            <p:message for="password" id="msgpassword" display="icon" />
+ 
+        </h:panelGrid>
+ 
+        <p:commandButton value="Login" update="panel" action="#{loginView.login}" icon="ui-icon-check" />
+    </p:panel>
+</h:form>
+
+</h:body>
+	 
+
+</html>
