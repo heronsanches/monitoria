@@ -157,5 +157,9 @@ public class Projeto {
 		return cod;
 	}	
 	
+	public void setCod(int cod) {
+		this.cod = cod;
+	}
+	
 
 }

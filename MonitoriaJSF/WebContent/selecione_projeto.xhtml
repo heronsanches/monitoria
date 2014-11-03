@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+     
+    <h:head>
+        <title>Projetos Disponíveis</title>
+	        <style type="text/css">
+	            .ui-widget {
+	                font-size: 90%;
+	            }
+	        </style>
+    </h:head>
+     
+    <h:body>
+        <h:form>
+            <p:dataTable var="projeto" value="#{editaisView.projetos}">
+                <p:column headerText="Código Projeto">
+                    <h:outputText value="#{projeto.cod}" />
+                </p:column>
+ 
+                <p:column headerText="Codigo Edital">
+                    <h:outputText value="#{projeto.edital_cod}" />
+                </p:column>
+ 
+                <p:column headerText="Descrição">
+                    <h:outputText value="#{projeto.descricao}" />
+                </p:column>
+ 
+                <p:column headerText="Selecione Projeto">
+                    <p:commandButton icon="ui-icon-search"
+                        actionListener="#{editaisView.selectProjetoFromDialog(projeto)}">
+                </p:commandButton>
+                
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+     
+</html>

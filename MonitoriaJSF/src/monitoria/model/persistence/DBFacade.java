@@ -1,5 +1,9 @@
 package monitoria.model.persistence;
 
+import java.util.List;
+
+import monitoria.model.Edital;
+import monitoria.model.Projeto;
 import monitoria.model.Usuario;
 
 public class DBFacade {
@@ -31,5 +35,16 @@ public class DBFacade {
 		return usuarioDAO.getOne(u);
 	}
 	
-
+	
+	//***********facade para Edital ***********//
+	public static List<Edital> getOpenedEditais(){
+		return editalDAO.getOpened();
+	}
+	
+	
+	//***********facade para Projeto ***********//
+	public static List<Projeto> getProjetosByEdital(Edital e){
+		return projetoDAO.getProjetosByEdital(e.getCod());		
+	}
+	
 }

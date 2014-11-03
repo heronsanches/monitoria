@@ -4,45 +4,50 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-</h:head>
+	
+<h:head><title>SM -- Editais Abertos</title></h:head>
 <ui:decorate template="menubar_aluno.xhtml"/>
+
 <h:body>
-<h:form id="form">
-    <p:treeTable value="#{ttBasicView.root}" var="document">
-        <f:facet name="header">
-            Document Viewer
-        </f:facet>
-        <p:column headerText="Name">
-            <h:outputText value="#{document.name}" />
-        </p:column>
-        <p:column headerText="Size">
-            <h:outputText value="#{document.size}" />
-        </p:column>
-        <p:column headerText="Type">
-            <h:outputText value="#{document.type}" />
-        </p:column>
-        <p:column style="width:24px">
-            <p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
-                <f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" />
-            </p:commandLink>
-        </p:column>
-    </p:treeTable>
+
+<p:dataTable var="edital" value="#{editaisView.editais}">
+
+   <p:column headerText="Código">
+        <h:outputText value="#{edital.cod}" />
+    </p:column>
+    
+    <p:column headerText="Inicio Inscrições">
+        <h:outputText value="#{edital.data_inicio}" />
+    </p:column>
  
-    <p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
-        <p:outputPanel id="documentPanel">
-            <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{ttBasicView.selectedDocument}">
-                <h:outputLabel for="name" value="Name: " />
-                <h:outputText id="name" value="#{ttBasicView.selectedDocument.name}" style="font-weight:bold" />
+    <p:column headerText="Fim Inscrições">
+        <h:outputText value="#{edital.data_fim}" />
+    </p:column>
+    
+    <p:column headerText="Informações">
+        <h:form>
+		    <p:commandButton value="Visualizar" icon="ui-icon-script" actionListener="#{editaisView.getInformacoes}">
+		       <f:param name="informacoes_adicionais" value="#{edital.informacoes_adicionais}" />
+		    </p:commandButton>
+		 </h:form>
+    </p:column>
  
-                <h:outputLabel for="size" value="Size: " />
-                <h:outputText id="size" value="#{ttBasicView.selectedDocument.size}" style="font-weight:bold" />
- 
-                <h:outputLabel for="type" value="Type " />
-                <h:outputText id="type" value="#{ttBasicView.selectedDocument.type}" style="font-weight:bold" />
-            </p:panelGrid>
-        </p:outputPanel>
-    </p:dialog>
-</h:form>
+    <p:column headerText="Projeto">
+       <p:growl id="growl" showDetail="true" />
+	    <p:commandButton value="Selecionar" icon="ui-icon-extlink" actionListener="#{editaisView.chooseProjetos(edital)}">
+	        <p:ajax event="dialogReturn" listener="#{editaisView.onProjetoChosen}"  update="growl" />
+	    </p:commandButton>
+    </p:column>
+     
+    <p:column headerText="Inscrição">
+       <p:growl id="growl2" showDetail="true" />
+       <p:commandButton value="Realizar" icon="ui-icon-extlink" actionListener="#">
+           <p:ajax event="dialogReturn"  update="growl2" />
+       </p:commandButton>
+    </p:column>
+       
+       
+</p:dataTable>
+
 </h:body>
 </html>

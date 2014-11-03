@@ -62,6 +62,11 @@ public class Edital {
 	public int getCod() {
 		return cod;
 	}
+	
+	public void setCod(int cod) {
+		this.cod =  cod;
+	}
 
+	
 
 }

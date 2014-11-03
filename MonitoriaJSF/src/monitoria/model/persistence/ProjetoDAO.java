@@ -2,9 +2,14 @@ package monitoria.model.persistence;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import monitoria.model.DB;
+import monitoria.model.Edital;
 import monitoria.model.Projeto;
 
 public class ProjetoDAO {
@@ -70,5 +75,56 @@ public int insert(Projeto p){
 		return count;
 		
 	}
+
+public List<Projeto> getProjetosByEdital(int cod) {
+
+	try {
+
+		Statement statement = DB.getConnectionDB().createStatement();
+
+		ResultSet resultSet = statement.executeQuery("select * from "
+				+ "projeto where edital_cod="+cod);
+
+		Projeto p = null;
+		List<Projeto> lp = new ArrayList<Projeto>();
+		
+		while (resultSet.next()) {
+
+			p = new Projeto();
+			p.setCod(resultSet.getInt(1));
+			p.setEdital_cod(resultSet.getInt(2));
+			p.setStatus(resultSet.getString(3));
+			p.setAtividades_gerais(resultSet.getString(4));
+			p.setDescricao(resultSet.getString(5));
+			p.setData_aprovacao(resultSet.getDate(6));
+			p.setAta_aprovacao(resultSet.getString(7));
+			p.setInicio_vigencia(resultSet.getDate(8));
+			p.setFim_vigencia(resultSet.getDate(9));
+			p.setQtde_vagas(resultSet.getInt(10));
+			p.setTipo(resultSet.getString(11));
+			p.setDisciplina_cod(resultSet.getString(12));
+			p.setProfessor_matricula(resultSet.getString(13));
+			lp.add(p);
+			
+		}
+
+		statement.close();
+		return lp;
+
+	} catch (SQLException e) {
+
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+
+	} catch (Exception e) {
+
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+
+	}
+
+}
 
 }

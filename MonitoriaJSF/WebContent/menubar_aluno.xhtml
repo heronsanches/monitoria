@@ -19,11 +19,10 @@
         </p:submenu>
  
         <p:submenu label="Inscrição" icon="ui-icon-gear">
-            <p:menuitem value="Novo" actionListener="#{menuView.save}" icon="ui-icon-disk" update="messages"/>
             <p:menuitem value="Resultado" actionListener="#{menuView.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
         </p:submenu>
  
-        <p:menuitem value="Editais" url="#" icon="ui-icon-close" />
+        <p:menuitem value="Editais" action="editais?faces-redirect=true" icon="ui-icon-close" />
         
         <f:facet name="options">
             <p:commandButton value="#{loginView.user}"/>
