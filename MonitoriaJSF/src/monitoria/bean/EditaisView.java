@@ -10,6 +10,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import monitoria.model.Edital;
+import monitoria.model.Inscricao;
 import monitoria.model.Projeto;
 import monitoria.model.persistence.DBFacade;
 
@@ -17,6 +18,7 @@ public class EditaisView {
 	
 	private List<Projeto> projetos;
 	private int projeto_cod;
+	private Inscricao i;
 	
 	
 	public List<Projeto> getProjetos(){
@@ -29,20 +31,23 @@ public class EditaisView {
 	}
 	
 	
+	public Inscricao getInscricao(){
+		return i;
+	}
+	
+	
 	public void chooseProjetos(Edital edital){
 		
 		if(projetos != null)
 			projetos.clear();
-		System.out.println(edital.getCod());
+
 		projetos = DBFacade.getProjetosByEdital(edital);
-		//System.out.println(projetos.get(0).getDescricao());
 		RequestContext.getCurrentInstance().openDialog("selecione_projeto");
 
 	}
     
     
 	public void selectProjetoFromDialog(Projeto projeto) {
-		System.out.println(projeto.getDescricao()+"de selectProjetoFromDialog");
         RequestContext.getCurrentInstance().closeDialog(projeto);
     }
     
@@ -51,11 +56,34 @@ public class EditaisView {
     	
         Projeto p = (Projeto) event.getObject();
         projeto_cod = p.getCod();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Projeto Selecionado",
-        		"Código:" + projeto_cod);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Projeto selecionado com sucesso!",
+        		"Código Projeto:" + projeto_cod
+        		+"\nCódigo Edital:" +p.getEdital_cod());
         
         FacesContext.getCurrentInstance().addMessage(null, message);
         
+    }
+    
+    
+    public void realizarInscricao(){
+    	    	
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext()
+    			.getRequestParameterMap();
+		
+    	if( (i = DBFacade.realizarInscricao(params.get("user"), projeto_cod)) != null){
+    		
+    		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscrição", ""
+    				+ "Inscrição realizada com sucesso.");
+            RequestContext.getCurrentInstance().showMessageInDialog(message);
+                		
+    	}else{
+    		
+    		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscrição",
+    				"Inscrição não realizada.");
+            RequestContext.getCurrentInstance().showMessageInDialog(message);
+                		
+    	}
+    	
     }
 	
 	

@@ -41,8 +41,8 @@
      
     <p:column headerText="Inscrição">
        <p:growl id="growl2" showDetail="true" />
-       <p:commandButton value="Realizar" icon="ui-icon-extlink" actionListener="#">
-           <p:ajax event="dialogReturn"  update="growl2" />
+       <p:commandButton value="Realizar" icon="ui-icon-extlink" actionListener="#{editaisView.realizarInscricao}">
+            <f:param name="user" value="#{loginView.user}" />
        </p:commandButton>
     </p:column>
        

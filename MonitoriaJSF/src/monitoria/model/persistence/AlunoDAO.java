@@ -1,7 +1,10 @@
 package monitoria.model.persistence;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 
 import monitoria.model.Aluno;
 import monitoria.model.DB;
@@ -39,5 +42,45 @@ public int insert(Aluno a){
 		return count;
 		
 	}
+
+
+public Aluno getAlunoByCpf(String cpf) {
+
+	try {
+
+		Statement statement = DB.getConnectionDB().createStatement();
+
+		ResultSet resultSet = statement.executeQuery("select * from "
+				+ "aluno where cpf='"+cpf+"'");
+
+		Aluno a = null;
+		
+		if(resultSet.next()) {
+
+			a = new Aluno();
+			a.setCpf(resultSet.getString("cpf"));
+			a.setMatricula(resultSet.getString("matricula"));
+			a.setNome(resultSet.getString("nome"));
+			
+		}
+
+		statement.close();
+		return a;
+
+	} catch (SQLException e) {
+
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+
+	} catch (Exception e) {
+
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+
+	}
+
+}
 
 }

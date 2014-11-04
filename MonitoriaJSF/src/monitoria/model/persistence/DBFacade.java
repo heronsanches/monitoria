@@ -1,8 +1,10 @@
 package monitoria.model.persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import monitoria.model.Edital;
+import monitoria.model.Inscricao;
 import monitoria.model.Projeto;
 import monitoria.model.Usuario;
 
@@ -45,6 +47,22 @@ public class DBFacade {
 	//***********facade para Projeto ***********//
 	public static List<Projeto> getProjetosByEdital(Edital e){
 		return projetoDAO.getProjetosByEdital(e.getCod());		
+	}
+	
+	
+	//***********facade para Inscricao ***********//
+	public static Inscricao realizarInscricao(String cpfUsuario, int projeto_cod){
+		
+		Inscricao i = new Inscricao();
+		i.setAluno_matricula(alunoDAO.getAlunoByCpf(cpfUsuario).getMatricula());
+		i.setProjeto_cod(projeto_cod);
+		i.setData_inscricao(new Date());
+		
+		if(inscricaoDAO.isAlunoInscricaoAberta(i.getAluno_matricula()) == null)
+			return inscricaoDAO.insert(i);
+		
+		return null;
+		
 	}
 	
 }

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import monitoria.model.DB;
-import monitoria.model.Edital;
 import monitoria.model.Projeto;
 
 public class ProjetoDAO {

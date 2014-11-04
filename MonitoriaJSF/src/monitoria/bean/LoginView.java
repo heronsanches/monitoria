@@ -52,4 +52,5 @@ public class LoginView {
     	FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     	return "login?faces-redirect=true";
     }
+    
 }
