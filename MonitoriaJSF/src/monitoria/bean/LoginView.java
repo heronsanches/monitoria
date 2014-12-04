@@ -35,22 +35,28 @@ public class LoginView {
     	u.setCpf(user);
     	u.setSenha(password);
     	
-    	if(DBFacade.getOneuUsuario(u) != null)
+    	if(DBFacade.getOneuUsuario(u) != null){
+    		
+    		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
     		return "home?faces-redirect=true";
-    	else{
+    		
+    	}else{
     		
     		logout();
     		FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("usuario e/ou senha não reconhecidos"));
+                new FacesMessage("Usuário e/ou senha não reconhecidos."));
     		return "#";
     		
     	}
+    	
     }
     
     
     public String logout(){
+    	
     	FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     	return "login?faces-redirect=true";
+    	
     }
     
 }
