@@ -70,6 +70,8 @@ public class EditaisView {
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext()
     			.getRequestParameterMap();
 		
+		System.out.println(params.get("user"));
+		System.out.println(projeto_cod);
     	if( (i = DBFacade.realizarInscricao(params.get("user"), projeto_cod)) != null){
     		
     		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscrição", ""

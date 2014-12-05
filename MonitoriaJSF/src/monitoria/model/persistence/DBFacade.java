@@ -58,7 +58,7 @@ public class DBFacade {
 		i.setProjeto_cod(projeto_cod);
 		i.setData_inscricao(new Date());
 		
-		if(inscricaoDAO.isAlunoInscricaoAberta(i.getAluno_matricula()) == null)
+		if(!inscricaoDAO.isAlunoInscricaoToProjeto(i))
 			return inscricaoDAO.insert(i);
 		
 		return null;

@@ -18,7 +18,7 @@ public Inscricao insert(Inscricao i){
 		try {
 			
 			PreparedStatement preparedStatement = DB.getConnectionDB().prepareStatement("insert into " +
-				"inscricao values (?, ?, ?, default)");
+				"inscricao values (default, ?, ?, ?, default)");
 		
 			preparedStatement.setInt(1, i.getProjeto_cod());
 			preparedStatement.setString(2, i.getAluno_matricula());
@@ -49,19 +49,31 @@ public Inscricao insert(Inscricao i){
 	}
 
 
-/**se retornar diferente de null, significa que existe inscricao aberta para o aluno */
-public Inscricao isAlunoInscricaoAberta(String matricula) {
+/**se retornar true, significa que existe inscricao num determinado projeto para este aluno */
+public boolean isAlunoInscricaoToProjeto(Inscricao ins) {
 
 	try {
 
 		Statement statement = DB.getConnectionDB().createStatement();
 
 		ResultSet resultSet = statement.executeQuery("select * from "
-				+ "inscricao where aluno_matricula='"+matricula+"'");
+				+ "inscricao where aluno_matricula='"+ins.getAluno_matricula()+"'"+
+				" and projeto_cod="+ins.getProjeto_cod());
 
-		Inscricao i = null;
+		//Inscricao i = null;
+		if(resultSet.next()){
 		
-		while (resultSet.next()) {
+			statement.close();
+			return true;
+		
+		}else{
+			
+			statement.close();
+			return false;
+			
+		}	
+		
+		/*while (resultSet.next()) {
 
 			i = null;
 			
@@ -76,22 +88,21 @@ public Inscricao isAlunoInscricaoAberta(String matricula) {
 				
 			}
 			
-		}
+		}*/
 
-		statement.close();
-		return i;
+		//return i;
 
 	} catch (SQLException e) {
 
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		return null;
+		return true;
 
 	} catch (Exception e) {
 
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		return null;
+		return true;
 
 	}
 

@@ -53,7 +53,7 @@ public List<Edital> getOpened() {
 		Statement statement = DB.getConnectionDB().createStatement();
 
 		ResultSet resultSet = statement.executeQuery("select * from "
-				+ "edital where data_fim > '2012-08-07'");
+				+ "edital where data_fim > '1975-09-01'");
 
 		Edital e = null;
 		List<Edital> le = new ArrayList<Edital>();
