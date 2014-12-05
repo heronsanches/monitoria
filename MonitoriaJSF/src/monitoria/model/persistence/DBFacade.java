@@ -58,10 +58,7 @@ public class DBFacade {
 		i.setProjeto_cod(projeto_cod);
 		i.setData_inscricao(new Date());
 		
-		if(!inscricaoDAO.isAlunoInscricaoToProjeto(i))
-			return inscricaoDAO.insert(i);
-		
-		return null;
+		return inscricaoDAO.insert(i); //SEMINARIO2 rule
 		
 	}
 	

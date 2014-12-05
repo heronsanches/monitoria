@@ -50,7 +50,7 @@ public Inscricao insert(Inscricao i){
 
 
 /**se retornar true, significa que existe inscricao num determinado projeto para este aluno */
-public boolean isAlunoInscricaoToProjeto(Inscricao ins) {
+/*public boolean isAlunoInscricaoToProjeto(Inscricao ins) {
 
 	try {
 
@@ -92,7 +92,7 @@ public boolean isAlunoInscricaoToProjeto(Inscricao ins) {
 
 		//return i;
 
-	} catch (SQLException e) {
+	/*} catch (SQLException e) {
 
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -107,6 +107,6 @@ public boolean isAlunoInscricaoToProjeto(Inscricao ins) {
 	}
 
 
-}
+}*/
 
 }
